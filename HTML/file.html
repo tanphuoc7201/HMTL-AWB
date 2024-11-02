@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep White-Balance Editing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(107, 150, 164, 0.95);
+        }
+
+        .image-preview {
+            margin-right: 20px;
+        }
+
+        img {
+            max-width: 500px;
+            max-height: 500px;
+            border-radius: 10px;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        button, input[type="range"] {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #488189;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="range"] {
+            width: 200px;
+        }
+
+        .controls label {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="image-preview">
+            <img id="image" src="" alt="Image Preview">
+        </div>
+        <div class="controls">
+            <button id="loadPhoto">Load Photo</button>
+            <input type="file" id="uploadPhoto" accept="image/*" style="display: none;">
+            
+            <button id="whiteBalance">White Balance</button>
+            
+            <div class="wb-mode">
+                <label>WB Mode</label>
+                <label><input type="radio" name="wbMode" value="auto" checked> Auto</label>
+                <label><input type="radio" name="wbMode" value="custom"> Custom</label>
+            </div>
+            
+            <div class="color-temperature">
+                <label>Color Temperature</label>
+                <input type="range" id="colorTemp" min="2850" max="7500" value="5000">
+            </div>
+            
+            <div class="adjustments">
+                <label>Tint factor</label>
+                <input type="range" id="tintFactor" min="-100" max="100" value="0">
+                
+                <label>Shade factor</label>
+                <input type="range" id="shadeFactor" min="-100" max="100" value="0">
+                
+                <label><input type="checkbox" id="normalization"> Normalization</label>
+            </div>
+            
+            <button id="savePhoto">Save Photo</button>
+        </div>
+    </div>
+
+    <script>
+        const loadPhotoButton = document.getElementById('loadPhoto');
+        const uploadPhotoInput = document.getElementById('uploadPhoto');
+        const imageElement = document.getElementById('image');
+        
+        loadPhotoButton.addEventListener('click', () => {
+            uploadPhotoInput.click();
+        });
+
+        uploadPhotoInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imageElement.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Placeholder functions for White Balance and Save Photo buttons
+        document.getElementById('whiteBalance').addEventListener('click', () => {
+            alert("White Balance applied (this is a placeholder).");
+        });
+
+        document.getElementById('savePhoto').addEventListener('click', () => {
+            alert("Photo saved (this is a placeholder).");
+        });
+    </script>
+</body>
+</html>
